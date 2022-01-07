@@ -1,17 +1,15 @@
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'yuj_dashboard'
-});
 
-connection.connect();
+var express = require('express'),
+    db = require('mysql');
 
-connection.query('select * from user', function (error, results, fields) {
-    console.log(results)
-    if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
-});
+let mysqlConnect = function () {
+    return db.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'yuj_dashboard',
+        dateStrings: 'date'
+    });
+};
 
-connection.end();
+module.exports.localConnect = mysqlConnect;

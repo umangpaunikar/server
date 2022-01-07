@@ -1,9 +1,23 @@
-const express = require("express");
+let db = require('../db').localConnect();
+let express = require('express');
+let mysql = require('mysql');
 
 const routes = express.Router();
 
 routes.get("/", (req, res) => {
-    res.json({ "message": "ok" });
+    userSql = "select * from user";
+
+    db.query(userSql, function (error, results, fields) {
+        res.json({ "user": results });
+
+        if (error) {
+            return reject(error);;
+        } else {
+            return resolve(results);
+        }
+    });
+
 });
+
 
 module.exports = routes;

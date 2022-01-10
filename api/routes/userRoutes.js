@@ -3,7 +3,7 @@ let express = require('express');
 
 const routes = express.Router();
 
-// let userController = require('../controllers/userController');
+let userController = require('../controllers/userController');
 
 routes.get("/", (request, response) => {
     db.query('select * from user', function (error, results, fields) {
@@ -14,14 +14,26 @@ routes.get("/", (request, response) => {
     });
 });
 
+//api/user/register
+routes.post('/register', function (request, response) {
+    console.log(request.body)
+    userController.regisitorNewUser(request.body)
+        .then(
+            (success) => {
+                console.log(success)
+                return new Promise((resolve, reject) => {
+                    resolve('from inside chain')
+                })
+            },
+            (error) => { console.log(`i am in error  ${error}`) }
+        )
+        .then(
+            (sss) => { console.log(`promisechain---in effect ${sss}`) },
+            (erro) => console.log(erro)
+        )
 
-// router.post('/register', function (request, response) {
-//     // templateController.addNewTemplateSize(req).then((data) => {
-//     //     res.send(data);
-//     // }).catch((error) => {
-//     //     res.send(error);
-//     // })
-//   });
+
+});
 
 
 

@@ -5,11 +5,18 @@ module.exports = {
     regisitorNewUser: (req) => {
 
         return new Promise((resolve, reject) => {
+            let { username, email, password } = req; //object properrties destructuring syntax
 
-            if (true) {
+            if (username) {
                 return resolve('I am from promisse resolve part');
             } else {
-                return reject('validations did not passed')
+
+                let validatons = {
+                    uname: 'is required field',
+                    password: 'password is required'
+                }
+
+                return reject(validatons)
             }
         });
 

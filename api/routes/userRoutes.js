@@ -16,23 +16,16 @@ routes.get("/", (request, response) => {
 
 //api/user/register
 routes.post('/register', function (request, response) {
-    console.log(request.body)
+  
     userController.regisitorNewUser(request.body)
         .then(
             (success) => {
-                console.log(success)
-                return new Promise((resolve, reject) => {
-                    resolve('from inside chain')
-                })
+                response.json(success)
             },
-            (error) => { console.log(`i am in error  ${error}`) }
+            (error) => {
+                response.json(error)
+            }
         )
-        .then(
-            (sss) => { console.log(`promisechain---in effect ${sss}`) },
-            (erro) => console.log(erro)
-        )
-
-
 });
 
 

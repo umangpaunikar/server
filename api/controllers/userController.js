@@ -1,4 +1,4 @@
-
+let db = require('../../db').localConnect();
 
 module.exports = {
 
@@ -7,17 +7,16 @@ module.exports = {
         return new Promise((resolve, reject) => {
             let { username, email, password } = req; //object properrties destructuring syntax
 
-            if (username) {
-                return resolve('I am from promisse resolve part');
-            } else {
+            let query = "INSERT INTO `users_register` (`id`, `username`, `email`, `password`) VALUES (NULL, '" + username + "','" + email + "', '" + password + "')";
 
-                let validatons = {
-                    uname: 'is required field',
-                    password: 'password is required'
+            db.query(query, (error, result, fields) => {
+                if (error) {
+                    return reject(error);
+                } else {
+                    return resolve(result);
                 }
+            });
 
-                return reject(validatons)
-            }
         });
 
 

@@ -5,7 +5,7 @@ const port = 5000;
 
 const product = require("./api/product/product");
 const location = require("./api/product/location");
-const user = require("./api/user");
+const user = require("./api/routes/userRoutes");
 
 app.use(bodyParser.json());
 

@@ -5,18 +5,23 @@ const routes = express.Router();
 
 let userController = require('../controllers/userController');
 
+//GET ->  api/user 
 routes.get("/", (request, response) => {
-    db.query('select * from user', function (error, results, fields) {
-        if (error) throw error;
-        // connected!
-        console.log(results)
-        response.json({ users: results })
-    });
+    userController.getUsers()
+    .then(
+            (success) => {
+                console.log(success)
+                response.json(success)
+            },
+            (reject) => {
+                response.json(reject)
+            }
+        )
 });
 
-//api/user/register
+//POST -> api/user/register
 routes.post('/register', function (request, response) {
-  
+
     userController.regisitorNewUser(request.body)
         .then(
             (success) => {

@@ -8,10 +8,12 @@ let userController = require('../controllers/userController');
 //GET ->  api/user 
 routes.get("/", (request, response) => {
     userController.getUsers()
-    .then(
+        .then(
             (success) => {
-                console.log(success)
+                 console.log(success)
                 response.json(success)
+
+              //  response.status(401).json({ success: false, error: "Unathorized user" });
             },
             (reject) => {
                 response.json(reject)
@@ -32,6 +34,21 @@ routes.post('/register', function (request, response) {
             }
         )
 });
+
+//POST -> api/user/login
+routes.post('/login', function (request, response) {
+
+    userController.loginUser(request.body)
+        .then(
+            (success) => {
+                response.json(success)
+            },
+            (error) => {
+                response.json(error)
+            }
+        )
+});
+
 
 
 

@@ -26,6 +26,8 @@ module.exports = {
             let query = "INSERT INTO `users_register` (`id`, `username`, `email`, `password`) VALUES (NULL, '" + username + "','" + email + "', '" + password + "')";
 
             db.query(query, (error, result, fields) => {
+
+                
                 if (error) {
                     return reject(error);
                 } else {
@@ -37,4 +39,26 @@ module.exports = {
 
 
     },
+
+    loginUser: (data) => {
+
+        return new Promise((resolve, reject) => {
+            let { username, password } = data; //object properrties destructuring syntax
+
+            let query = "SELECT * FROM `users_register` WHERE username = '" + username + "' and password='" + password + "'";
+
+            db.query(query, (error, result, fields) => {
+                if (result.length > 0) {
+                    return resolve(result);
+                } else {
+                    return reject({
+                        "Error": "user not found.."
+                    });
+                }
+
+            });
+
+        });
+
+    }
 }
